@@ -1,0 +1,38 @@
+ul {
+  text-align: left;
+  list-style-type: none;
+  background: #3399ff;
+  padding: 20px;
+}
+
+ul li {
+  background: #cce5ff;
+  margin: 5px;
+}
+
+.float {
+  float: left;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.open {
+  color: green;
+}
+
+.status {
+  padding: 10px;
+  margin-right: 20px;
+}
+
+.issue-item {
+  text-decoration: none;
+}
+
+.issue-item:hover {
+  color: orangered;
+}
