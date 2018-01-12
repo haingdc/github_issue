@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import ItemContainer from "./ItemContainer";
+import { issues } from "./mock_data";
 
 if (process.env.NODE_ENV === "development") {
   require("./App.css");
@@ -13,8 +14,7 @@ class App extends Component {
   }
 
   fetchIssues() {
-    let items = ["item 1", "item 2", "item 3", "item 4"];
-    return items;
+    return issues;
   }
 
   componentDidMount() {
