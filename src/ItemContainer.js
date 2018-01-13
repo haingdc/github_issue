@@ -20,13 +20,13 @@ class ItemContainer extends React.Component {
             {format(new Date(issue.time), "[Opened on ] MMM D, YYYY [by ]")}
           </p>
         </div>
-        <div class="clearfix" />
+        <div className="clearfix" />
       </li>
     ));
 
     return (
       <div>
-        <ul>{items}</ul>
+        <ul className="issue-list">{items}</ul>
       </div>
     );
   }
