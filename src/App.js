@@ -13,15 +13,9 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    // an example array of items to be paged
-    var exampleItems = _.range(1, 151).map(i => {
-      return { id: i, name: "Item " + i };
-    });
-    console.log(exampleItems);
-
     this.state = {
       items: [],
-      exampleItems: exampleItems,
+      exampleItems: [],
       pageOfItems: [],
     };
 
@@ -31,7 +25,7 @@ class App extends Component {
 
   onChangePage(pageOfItems) {
     // update state with new page of items
-    this.setState({ pageOfItems: pageOfItems });
+    this.setState({ pageOfItems });
   }
 
   fetchIssues() {
@@ -40,7 +34,7 @@ class App extends Component {
 
   componentDidMount() {
     let items = this.fetchIssues();
-    this.setState({ items });
+    this.setState({ items, exampleItems: items });
   }
 
   render() {
@@ -52,13 +46,9 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <ItemContainer items={this.state.items} />
         <div className="container">
           <div className="text-center">
-            <h1>React - Pagination Example with logic like Google</h1>
-            {this.state.pageOfItems.map(item => (
-              <div key={item.id}>{item.name}</div>
-            ))}
+            <ItemContainer items={this.state.pageOfItems} />
             <Pagination
               items={this.state.exampleItems}
               onChangePage={this.onChangePage}
