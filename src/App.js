@@ -5,6 +5,7 @@ import { NavLink, Switch, Route } from "react-router-dom";
 import ItemContainer from "./ItemContainer";
 import { issues } from "./mock_data";
 import Pagination from "./Pagination";
+import Issue_Detail from "./Issue_Detail";
 
 if (process.env.NODE_ENV === "development") {
   require("./App.css");
@@ -30,14 +31,8 @@ const Navigation = () => (
 const Main = () => (
   <Switch>
     <Route exact path="/" component={ISSUE} />
-    <Route exact path="/specific-issue" component={Specific} />
+    <Route exact path="/specific-issue" component={Issue_Detail} />
   </Switch>
-);
-
-const Specific = () => (
-  <div className="about">
-    <h1>Specific Issue</h1>
-  </div>
 );
 
 class App extends Component {
