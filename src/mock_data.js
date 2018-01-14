@@ -178,5 +178,33 @@ export let issue_detail = {
   title:
     "First start take more than one minute, and modify one file take 10s to recompile. Is this ok?",
   time: "12/10/2017, 8:17:17",
-  comments: [],
+  comments: [
+    {
+      comment_id: "352346206",
+      author: {
+        name: "joaomoreno",
+        avatar: "https://avatars1.githubusercontent.com/u/22350?s=400&v=4",
+      },
+      content: `What does git config --get-all user.name return, in that folder?`,
+      time: "12/10/2017, 8:17:17",
+    },
+    {
+      comment_id: "352346206",
+      author: {
+        name: "joaomoreno",
+        avatar: "https://avatars1.githubusercontent.com/u/22350?s=400&v=4",
+      },
+      content: `What does git config --get-all user.name return, in that folder?`,
+      time: "12/10/2017, 8:17:17",
+    },
+    {
+      comment_id: "352346206",
+      author: {
+        name: "joaomoreno",
+        avatar: "https://avatars1.githubusercontent.com/u/22350?s=400&v=4",
+      },
+      content: `What does git config --get-all user.name return, in that folder?`,
+      time: "12/10/2017, 8:17:17",
+    },
+  ],
 };
