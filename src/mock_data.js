@@ -157,6 +157,8 @@ export let issues = [
 export let issue_detail = {
   author: {
     name: "motowilliams",
+    avatar: "https://avatars1.githubusercontent.com/u/22350?s=400&v=4",
+    profile_site: "https://github.com/PunchyRascal",
   },
   content: `
   It sure seems to be so... This is what git returns:
