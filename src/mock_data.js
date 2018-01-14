@@ -153,3 +153,30 @@ export let issues = [
     time: "12/4/2017, 8:17:17",
   },
 ];
+
+export let issue_detail = {
+  author: {
+    name: "motowilliams",
+  },
+  content: `
+  It sure seems to be so... This is what git returns:
+
+  *** Please tell me who you are.
+  
+  Run
+  
+    git config --global user.email "you@example.com"
+    git config --global user.name "Your Name"
+  
+  to set your account's default identity.
+  Omit --global to set the identity only in this repository.
+  
+  fatal: unable to auto-detect email address (got 'eric@DESKTOP-7O2SA82.(none)')  
+  `,
+  issue_id: 3749,
+  status: "open",
+  title:
+    "First start take more than one minute, and modify one file take 10s to recompile. Is this ok?",
+  time: "12/10/2017, 8:17:17",
+  comments: [],
+};
