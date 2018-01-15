@@ -1,4 +1,5 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
 
 const CommentIssue = props => {
   return (
@@ -14,7 +15,9 @@ const CommentIssue = props => {
             <span className="issue__user__name">{props.data.author.name}</span>
           </a>
         </div>
-        <div className="issue-detail__comment__body">{props.data.content}</div>
+        <div className="issue-detail__comment__body">
+          <ReactMarkdown source={props.data.content} />
+        </div>
       </div>
       <hr />
     </div>

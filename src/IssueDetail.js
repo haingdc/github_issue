@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import ReactMarkdown from "react-markdown";
+
 import CommentIssue from "./CommentIssue";
 
 if (process.env.NODE_ENV === "development") {
@@ -36,7 +38,7 @@ class IssueDetail extends Component {
           </a>
         </div>
         <div className="issue-detail__summary">
-          <p>{this.props.issue_detail.content}</p>
+          <ReactMarkdown source={this.props.issue_detail.content} />
         </div>
         <hr />
         <div className="issue-detail__comments">

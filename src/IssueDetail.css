@@ -16,6 +16,7 @@
   display: inline;
 }
 
+.issue-detail__summary,
 .issue-detail__comments {
   text-align: left;
 }
