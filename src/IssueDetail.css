@@ -1,6 +1,7 @@
 .issue-detail__meta {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .issue__user__avatar {
@@ -8,8 +9,20 @@
   height: 40px;
   border-radius: 50%;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  margin-right: 10px;
 }
 
-.issue-detail__name {
+.issue__user__name {
   display: inline;
+}
+
+.issue-detail__comments {
+  text-align: left;
+}
+.issue-detail__comment__meta {
+  margin-bottom: 10px;
+}
+
+.issue-detail__comment__body {
+  padding-left: 30px;
 }

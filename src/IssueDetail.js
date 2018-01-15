@@ -1,12 +1,17 @@
 import React, { Component } from "react";
+import CommentIssue from "./CommentIssue";
 
 if (process.env.NODE_ENV === "development") {
   require("./IssueDetail.css");
 }
 
-class Issue_Detail extends Component {
-  constructor(props) {
-    super(props);
+const EMPTY = [];
+
+class IssueDetail extends Component {
+  createComments(comments) {
+    return comments.map((v, k) => {
+      return <CommentIssue key={k} data={v} />;
+    });
   }
 
   render() {
@@ -25,14 +30,21 @@ class Issue_Detail extends Component {
               className="issue__user__avatar"
               src={this.props.issue_detail.author.avatar}
             />
-            <div className="issue-detail__name">
+            <div className="issue__user__name">
               {this.props.issue_detail.author.name}
             </div>
           </a>
+        </div>
+        <div className="issue-detail__summary">
+          <p>{this.props.issue_detail.content}</p>
+        </div>
+        <hr />
+        <div className="issue-detail__comments">
+          {this.createComments(this.props.issue_detail.comments || EMPTY)}
         </div>
       </div>
     );
   }
 }
 
-export default Issue_Detail;
+export default IssueDetail;
