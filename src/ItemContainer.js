@@ -47,7 +47,7 @@ class ItemContainer extends React.Component {
           <span className={issue.status}>{issue.status}</span>
         </div>
         <div className="float">
-          <a className="issue-item" href="#">
+          <a className="issue-item" href={`/issue/${issue.issue_id}`}>
             {issue.title}
           </a>
           <p>{this.diffenceTime(issue.time)}</p>
