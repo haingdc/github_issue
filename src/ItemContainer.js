@@ -1,11 +1,5 @@
 import React from "react";
-import date_fns, {
-  format,
-  formatDistance,
-  formatRelative,
-  subDays,
-  distanceInWordsToNow,
-} from "date-fns";
+import date_fns, { format } from "date-fns";
 
 if (process.env.NODE_ENV === "development") {
   require("./ItemContainer.css");
@@ -42,12 +36,6 @@ class ItemContainer extends React.Component {
   }
 
   render() {
-    const NOW = new Date();
-    let diff = date_fns.differenceInMinutes(
-      NOW,
-      new Date("1/13/2018, 15:17:0"),
-    );
-
     let { items } = this.props;
     if (!items) {
       items = [];

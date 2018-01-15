@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import _ from "underscore";
 import { NavLink, Switch, Route } from "react-router-dom";
 
 import ItemContainer from "./ItemContainer";
-import { issues } from "./mock_data";
+import { issues, issue_detail } from "./mock_data";
 import Pagination from "./Pagination";
-import Issue_Detail from "./Issue_Detail";
+import IssueDetail from "./IssueDetail";
 
 if (process.env.NODE_ENV === "development") {
   require("./App.css");
@@ -28,20 +27,47 @@ const Navigation = () => (
   </nav>
 );
 
-const Main = () => (
-  <Switch>
-    <Route exact path="/" component={ISSUE} />
-    <Route exact path="/specific-issue" component={Issue_Detail} />
-  </Switch>
-);
+class Main extends Component {
+  render() {
+    return (
+      <Switch>
+        <Route exact path="/" component={ISSUE} />
+        <Route
+          exact
+          path="/specific-issue"
+          render={props => {
+            return (
+              <IssueDetail {...props} issue_detail={this.props.issue_detail} />
+            );
+          }}
+        />
+      </Switch>
+    );
+  }
+}
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      items: [],
+      exampleItems: [],
+      pageOfItems: [],
+      issue_detail: {},
+    };
+  }
+
+  componentWillMount() {
+    this.setState({ issue_detail });
+  }
+
   render() {
     return (
       <div className="App">
         <div className="container">
           <Navigation />
-          <Main />
+          <Main issue_detail={this.state.issue_detail} />
         </div>
       </div>
     );
