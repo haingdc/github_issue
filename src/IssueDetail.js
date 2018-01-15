@@ -30,6 +30,7 @@ class IssueDetail extends Component {
           <a href={this.props.issue_detail.author.profile_site}>
             <img
               className="issue__user__avatar"
+              alt=""
               src={this.props.issue_detail.author.avatar}
             />
             <div className="issue__user__name">
