@@ -186,6 +186,7 @@ export let issue_detail = {
       author: {
         name: "joaomoreno",
         avatar: "https://avatars1.githubusercontent.com/u/22350?s=400&v=4",
+        profile_site: "https://github.com/PunchyRascal",
       },
       content: `What does git config --get-all user.name return, in that folder?`,
       time: "12/10/2017, 8:17:17",
@@ -195,8 +196,33 @@ export let issue_detail = {
       author: {
         name: "joaomoreno",
         avatar: "https://avatars1.githubusercontent.com/u/22350?s=400&v=4",
+        profile_site: "https://github.com/PunchyRascal",
       },
-      content: `What does git config --get-all user.name return, in that folder?`,
+      content: `Make a new CSS-class 
+    
+      .display-linebreak {
+        white-space: pre-line;
+      }
+  
+  Display your text with that CSS-class
+  
+      render() {
+        const text = 'One \n Two \n Three';
+        return ( 
+           <div className="display-linebreak"> 
+              {text} 
+           </div>
+        );
+      }
+  
+  Renders with line-breaks (Sequences of whitespace will collapse into a single whitespace. Text will wrap when necessary). Like this:
+      
+      One
+      Two
+      Three
+  You may also consider pre-wrap. More info here
+  http://www.w3schools.com/cssref/pr_text_white-space.asp
+  `,
       time: "12/10/2017, 8:17:17",
     },
     {
@@ -204,8 +230,36 @@ export let issue_detail = {
       author: {
         name: "joaomoreno",
         avatar: "https://avatars1.githubusercontent.com/u/22350?s=400&v=4",
+        profile_site: "https://github.com/PunchyRascal",
       },
-      content: `What does git config --get-all user.name return, in that folder?`,
+      content: `\`map\` is not a feature of React.js. You can call this function on any array you want. You should look at its [documentation at MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) for that.
+
+      Basically, map is for converting an array to another array with modified items.
+      For example:
+      
+      
+          [1,2,3].map(function(item){
+              return item+1;
+          })
+      
+      would return a new array like this: \`[(2, 3, 4)]\`
+      
+      In your example, map is used to convert an array with items of type "string" to an array of React.DOM.li elements.
+      
+      The autor of your example could also have done it like this
+      
+          
+          var TodoList = React.createClass({
+              render: function(){
+                  return <ul>{this.createItems(this.props.items)}</ul>;
+              },
+              createItems: function(items){
+                  var output = [];
+                  for(var i = 0; i < items.length; i++) output.push(<li>{items[i]}</li>);
+                  return output;
+              }
+          });
+      `,
       time: "12/10/2017, 8:17:17",
     },
   ],
