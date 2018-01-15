@@ -44,13 +44,13 @@ class ItemContainer extends React.Component {
     let liElements = items.map((issue, ind) => (
       <li key={ind}>
         <div className="float status">
-          <span className={issue.status}>{issue.status}</span>
+          <span className={issue.state}>{issue.state}</span>
         </div>
         <div className="float">
-          <a className="issue-item" href={`/issue/${issue.issue_id}`}>
+          <a className="issue-item" href={`/issue/${issue.id}`}>
             {issue.title}
           </a>
-          <p>{this.diffenceTime(issue.time)}</p>
+          <p>{this.diffenceTime(issue.created_at)}</p>
         </div>
         <div className="clearfix" />
       </li>

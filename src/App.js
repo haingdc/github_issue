@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { NavLink, Switch, Route } from "react-router-dom";
+import { NavLink, Switch, Route, Redirect } from "react-router-dom";
+import axios from "axios";
 
 import ItemContainer from "./ItemContainer";
 import { issues, issue_detail } from "./mock_data";
@@ -41,6 +42,16 @@ class Main extends Component {
             );
           }}
         />
+        <Route
+          exact
+          path="/issue/:issueId"
+          render={props => {
+            return (
+              <IssueDetail {...props} issue_detail={this.props.issue_detail} />
+            );
+          }}
+        />
+        <Redirect to="/" />
       </Switch>
     );
   }
@@ -94,12 +105,27 @@ class ISSUE extends Component {
   }
 
   fetchIssues() {
-    return issues;
+    const url = `https://api.github.com/repos/Microsoft/vscode/issues?per_page=25&page=1`;
+    return axios
+      .get(url)
+      .then(res => {
+        return { data: res.data };
+      })
+      .catch(err => Promise.reject(err));
   }
 
   componentDidMount() {
-    let items = this.fetchIssues();
-    this.setState({ items, exampleItems: items });
+    // let items = this.fetchIssues();
+    // this.setState({ items, exampleItems: items });
+
+    this.fetchIssues()
+      .then(res => {
+        console.log(res);
+        this.setState({ items: res.data, exampleItems: res.data });
+      })
+      .catch(err => {
+        console.log(`Axios Error`, err);
+      });
   }
 
   render() {
