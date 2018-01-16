@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { NavLink, Switch, Route, Redirect } from "react-router-dom";
-import axios from "axios";
+import { Paginate } from "react-paginate";
 
 import ItemContainer from "./ItemContainer";
-import { issues, issue_detail } from "./mock_data";
+import { issue_detail } from "./mock_data";
+import { fetchIssues } from "./api/index";
 import Pagination from "./Pagination";
 import IssueDetail from "./IssueDetail";
 
@@ -32,7 +33,7 @@ class Main extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" component={ISSUE} />
+        <Route exact path="/" component={IssueList} />
         <Route
           exact
           path="/specific-issue"
@@ -85,7 +86,7 @@ class App extends Component {
   }
 }
 
-class ISSUE extends Component {
+class IssueList extends Component {
   constructor(props) {
     super(props);
 
@@ -93,6 +94,7 @@ class ISSUE extends Component {
       items: [],
       exampleItems: [],
       pageOfItems: [],
+      pageCount: 0,
     };
 
     // bind function in constructor instead of render (https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
@@ -104,24 +106,14 @@ class ISSUE extends Component {
     this.setState({ pageOfItems });
   }
 
-  fetchIssues() {
-    const url = `https://api.github.com/repos/Microsoft/vscode/issues?per_page=25&page=1`;
-    return axios
-      .get(url)
-      .then(res => {
-        return { data: res.data };
-      })
-      .catch(err => Promise.reject(err));
-  }
-
   componentDidMount() {
-    // let items = this.fetchIssues();
-    // this.setState({ items, exampleItems: items });
-
-    this.fetchIssues()
+    fetchIssues()
       .then(res => {
-        console.log(res);
-        this.setState({ items: res.data, exampleItems: res.data });
+        this.setState({
+          items: res.data,
+          exampleItems: res.data,
+          pageOfItems: res.data,
+        });
       })
       .catch(err => {
         console.log(`Axios Error`, err);
@@ -129,15 +121,18 @@ class ISSUE extends Component {
   }
 
   render() {
+    const { pageCount, pageOfItems } = this.state;
     return (
       <div className="App">
         <div className="container">
           <div className="text-center">
-            <ItemContainer items={this.state.pageOfItems} />
-            <Pagination
-              items={this.state.exampleItems}
-              onChangePage={this.onChangePage}
-            />
+            <ItemContainer items={pageOfItems} />
+            {/* <Paginate
+              forcePage={currentPage}
+              pageCount={pageCount}
+              nextLabel="&rarr;"
+              previousLabel="&larr;"
+            /> */}
           </div>
         </div>
       </div>
