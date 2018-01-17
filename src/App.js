@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { NavLink, Switch, Route, Redirect } from "react-router-dom";
-import { Paginate } from "react-paginate";
+import Paginate from "react-paginate";
+import queryString from "query-string";
 
 import ItemContainer from "./ItemContainer";
 import { issue_detail } from "./mock_data";
 import { fetchIssues } from "./api/index";
-import Pagination from "./Pagination";
 import IssueDetail from "./IssueDetail";
 
 if (process.env.NODE_ENV === "development") {
@@ -98,13 +98,11 @@ class IssueList extends Component {
     };
 
     // bind function in constructor instead of render (https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
-    this.onChangePage = this.onChangePage.bind(this);
   }
 
-  onChangePage(pageOfItems) {
-    // update state with new page of items
-    this.setState({ pageOfItems });
-  }
+  handlePageChange = ({ selected }) => {
+    console.log(`handlePageChange`);
+  };
 
   componentDidMount() {
     fetchIssues()
@@ -120,24 +118,56 @@ class IssueList extends Component {
       });
   }
 
+  componentWillReceiveProps(newProps) {
+    console.log(`componentWillReceiveProps`, this);
+  }
+
   render() {
     const { pageCount, pageOfItems } = this.state;
+    const { search } = this.props.location.search;
+
+    const params = queryString.parse(search);
+    const currentPage = Math.min(
+      pageCount,
+      Math.max(1, parseInt(params.page, 10) || 1),
+    );
+
     return (
       <div className="App">
         <div className="container">
           <div className="text-center">
             <ItemContainer items={pageOfItems} />
-            {/* <Paginate
+            <Paginate
               forcePage={currentPage}
               pageCount={pageCount}
               nextLabel="&rarr;"
               previousLabel="&larr;"
-            /> */}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={10}
+              onPageChange={this.handlePageChange}
+            />
+            <Paginate
+              previousLabel={"previous"}
+              nextLabel={"next"}
+              breakLabel={<a href="">...</a>}
+              breakClassName={"break-me"}
+              pageCount={pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={this.handlePageChange}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"}
+            />
           </div>
         </div>
       </div>
     );
   }
 }
+
+// IssueList.propTypes = {
+//   pageCount: PropTypes.number.isRequired,
+// };
 
 export default App;
