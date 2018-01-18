@@ -5,7 +5,7 @@ import queryString from "query-string";
 
 import ItemContainer from "./ItemContainer";
 import { issue_detail } from "./mock_data";
-import { fetchIssues } from "./api/index";
+import * as API from "./api/index";
 import IssueDetail from "./IssueDetail";
 
 if (process.env.NODE_ENV === "development") {
@@ -33,7 +33,12 @@ class Main extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/" component={IssueList} />
+        <Route
+          exact
+          path="/"
+          component={() => <Redirect to="/microsoft/vscode/issues" />}
+        />
+        {/* <Route exact path="/" component={IssueList} /> */}
         <Route
           exact
           path="/specific-issue"
@@ -43,6 +48,9 @@ class Main extends Component {
             );
           }}
         />
+        <Route exact path="/microsoft/vscode/issues" component={IssueList}>
+          {/* <Route exact="/:org/:repo/issues"> */}
+        </Route>
         <Route
           exact
           path="/issue/:issueId"
@@ -93,37 +101,51 @@ class IssueList extends Component {
     this.state = {
       items: [],
       exampleItems: [],
-      pageOfItems: [],
+      issues: [],
       pageCount: 0,
     };
 
     // bind function in constructor instead of render (https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
   }
 
-  handlePageChange = ({ selected }) => {
-    console.log(`handlePageChange`);
-  };
-
-  componentDidMount() {
-    fetchIssues()
+  getIssues = ({ page }) => {
+    API.fetchIssues(page)
       .then(res => {
         this.setState({
-          items: res.data,
-          exampleItems: res.data,
-          pageOfItems: res.data,
+          issues: res.issues,
+          pageCount: res.pageCount,
+          exampleItems: res.issues,
+          pageOfItems: res.issues,
         });
       })
       .catch(err => {
         console.log(`Axios Error`, err);
       });
-  }
+  };
 
-  componentWillReceiveProps(newProps) {
-    console.log(`componentWillReceiveProps`, this);
+  handlePageChange = ({ selected }) => {
+    const newPage = selected + 1;
+    this.props.history.push({
+      pathname: "/microsoft/vscode/issues",
+      search: `?page=${newPage}`,
+    });
+  };
+
+  componentDidMount() {
+    const { pageCount } = this.state;
+    const { search } = this.props.location.search;
+
+    const params = queryString.parse(search);
+    const currentPage = Math.min(
+      pageCount,
+      Math.max(1, parseInt(params.page, 10) || 1),
+    );
+
+    this.getIssues({ page: currentPage });
   }
 
   render() {
-    const { pageCount, pageOfItems } = this.state;
+    const { pageCount, issues } = this.state;
     const { search } = this.props.location.search;
 
     const params = queryString.parse(search);
@@ -136,22 +158,12 @@ class IssueList extends Component {
       <div className="App">
         <div className="container">
           <div className="text-center">
-            <ItemContainer items={pageOfItems} />
+            <ItemContainer items={issues} />
             <Paginate
               forcePage={currentPage}
               pageCount={pageCount}
               nextLabel="&rarr;"
               previousLabel="&larr;"
-              marginPagesDisplayed={2}
-              pageRangeDisplayed={10}
-              onPageChange={this.handlePageChange}
-            />
-            <Paginate
-              previousLabel={"previous"}
-              nextLabel={"next"}
-              breakLabel={<a href="">...</a>}
-              breakClassName={"break-me"}
-              pageCount={pageCount}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
               onPageChange={this.handlePageChange}
@@ -165,9 +177,5 @@ class IssueList extends Component {
     );
   }
 }
-
-// IssueList.propTypes = {
-//   pageCount: PropTypes.number.isRequired,
-// };
 
 export default App;
