@@ -25,6 +25,7 @@ export const fetchIssues = page => {
   return axios
     .get(url)
     .then(res => {
+      console.log(`res`, res);
       const pageLinks = parseLink(res.headers.link);
       const pageCount = getPageCount(pageLinks);
       return {
@@ -34,3 +35,18 @@ export const fetchIssues = page => {
     })
     .catch(err => Promise.reject(err));
 };
+
+export const fetchIssue = number => {
+  const url = `https://api.github.com/repos/Microsoft/vscode/issues/${number}`;
+  return axios
+    .get(url)
+    .then(res => res.data)
+    .catch(err => Promise.reject(err));
+};
+
+export function getComments(url) {
+  return axios
+    .get(url)
+    .then(res => res.data)
+    .catch(err => Promise.reject(err));
+}
