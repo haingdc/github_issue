@@ -20,15 +20,15 @@ const getPageCount = pageLinks => {
   }
 };
 
-export const fetchIssues = () => {
-  const url = `https://api.github.com/repos/Microsoft/vscode/issues?per_page=25&page=1`;
+export const fetchIssues = page => {
+  const url = `https://api.github.com/repos/Microsoft/vscode/issues?per_page=25&page=${page}`;
   return axios
     .get(url)
     .then(res => {
       const pageLinks = parseLink(res.headers.link);
       const pageCount = getPageCount(pageLinks);
       return {
-        data: res.data,
+        issues: res.data,
         pageCount,
       };
     })
