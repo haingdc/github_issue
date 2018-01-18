@@ -38,7 +38,6 @@ class Main extends Component {
           path="/"
           component={() => <Redirect to="/microsoft/vscode/issues" />}
         />
-        {/* <Route exact path="/" component={IssueList} /> */}
         <Route
           exact
           path="/specific-issue"
@@ -104,8 +103,6 @@ class IssueList extends Component {
       issues: [],
       pageCount: 0,
     };
-
-    // bind function in constructor instead of render (https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
   }
 
   getIssues = ({ page }) => {
@@ -130,6 +127,19 @@ class IssueList extends Component {
       search: `?page=${newPage}`,
     });
   };
+
+  componentWillReceiveProps(newProps) {
+    let { search } = this.props.location;
+
+    const page = queryString.parse(search).page;
+
+    search = newProps.location.search;
+    const newPage = queryString.parse(search).page;
+
+    if (newPage && newPage !== page) {
+      this.getIssues({ page: newPage });
+    }
+  }
 
   componentDidMount() {
     const { pageCount } = this.state;
