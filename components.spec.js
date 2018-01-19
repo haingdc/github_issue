@@ -4,17 +4,18 @@ import Enzyme, { shallow, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import { spy } from "sinon";
 
-import App, { buttonName } from "./src/App";
+import App from "./src/App";
 import ItemContainer from "./src/ItemContainer";
+import ItemList from "./src/IssueList";
+import IssueList from "./src/IssueList";
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe("App", () => {
-  it("should render ItemContainer", () => {
+  // test case fall due to the exist of react-router. IssueList isn't a child of App
+  it("should render IssueList", () => {
     const wrapper = shallow(<App />);
-    expect(
-      wrapper.containsAllMatchingElements([<ItemContainer />]),
-    ).to.be.equal(true);
+    expect(wrapper.containsMatchingElement([<IssueList />])).to.be.equal(true);
   });
 });
 

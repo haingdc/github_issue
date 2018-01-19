@@ -44,14 +44,7 @@ class IssueDetail extends Component {
       return <div>Nothing to show</div>;
     }
 
-    const {
-      title,
-      number,
-      state,
-      user,
-      body,
-      comments_url,
-    } = this.state.issue_detail;
+    const { title, number, state, user, body } = this.state.issue_detail;
 
     const { comments } = this.state;
 

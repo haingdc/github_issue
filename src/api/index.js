@@ -25,7 +25,6 @@ export const fetchIssues = page => {
   return axios
     .get(url)
     .then(res => {
-      console.log(`res`, res);
       const pageLinks = parseLink(res.headers.link);
       const pageCount = getPageCount(pageLinks);
       return {
