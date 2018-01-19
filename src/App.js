@@ -159,10 +159,8 @@ class IssueList extends Component {
     const { search } = this.props.location.search;
 
     const params = queryString.parse(search);
-    const currentPage = Math.min(
-      pageCount,
-      Math.max(1, parseInt(params.page, 10) || 1),
-    );
+    const currentPage =
+      Math.min(pageCount, Math.max(1, parseInt(params.page, 10) || 1)) - 1;
 
     return (
       <div className="App">
