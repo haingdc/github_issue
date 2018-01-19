@@ -44,7 +44,7 @@ export const fetchIssue = number => {
     .catch(err => Promise.reject(err));
 };
 
-export function getComments(url) {
+export function fetchComments(url) {
   return axios
     .get(url)
     .then(res => res.data)
