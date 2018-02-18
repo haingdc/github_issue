@@ -21,7 +21,7 @@ const getPageCount = pageLinks => {
 };
 
 export const fetchIssues = page => {
-  const url = `https://api.github.com/repos/Microsoft/vscode/issues?per_page=25&page=${page}`;
+  const url = `repos/Microsoft/vscode/issues?per_page=25&page=${page}`;
   return axios
     .get(url)
     .then(res => {

@@ -2,6 +2,7 @@
   "name": "github-issue",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://api.github.com/",
   "dependencies": {
     "axios": "^0.17.1",
     "date-fns": "^1.29.0",

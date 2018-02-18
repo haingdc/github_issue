@@ -14,11 +14,7 @@ class Main extends Component {
   render() {
     return (
       <Switch>
-        <Route
-          exact
-          path="/"
-          component={() => <Redirect to="/microsoft/vscode/issues" />}
-        />
+        <Route exact path="/" component={IssueList} />
         <Route
           exact
           path="/specific-issue"
